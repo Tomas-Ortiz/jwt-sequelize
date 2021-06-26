@@ -17,7 +17,7 @@ const authController = {
       }
       passwordMatches = await bcrypt.compare(password, user.password);
       if (passwordMatches) {
-        token = jwt.sign({ user: user.id }, authConfig.secret, {
+        token = jwt.sign({ userId: user.id }, authConfig.secret, {
           expiresIn: authConfig.expires,
         });
         result = { success: true, token: token, user: user };

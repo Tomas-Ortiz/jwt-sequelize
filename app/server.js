@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express();
 const { sequelize } = require('./models/index');
+
 // Settings
 const PORT = process.env.PORT || 3000;
+app.set('json spaces', 2);
 
 // Middlewares
 app.use(express.json());
