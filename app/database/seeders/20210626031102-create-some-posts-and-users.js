@@ -2,6 +2,7 @@
 const { User } = require('../../models/index');
 const bcrypt = require('bcrypt');
 const authConfig = require('../../../config/auth');
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     // Se crean 2 usuarios, con sus respectivos posts
@@ -37,7 +38,7 @@ module.exports = {
       User.create(
         {
           name: 'Tomas',
-          email: 'tomass@gmail.com',
+          email: 'tomas@gmail.com',
           password: bcrypt.hashSync(
             '123456789',
             Number.parseInt(authConfig.salt)

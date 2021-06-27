@@ -5,9 +5,7 @@ const authConfig = require('../../config/auth');
 
 const authController = {
   signIn: async (req, res) => {
-    let result;
-    let token;
-    let passwordMatches;
+    let result, token, passwordMatches;
     try {
       let { email, password } = req.body;
       const user = await User.findOne({ where: { email: email } });
@@ -17,7 +15,7 @@ const authController = {
       }
       passwordMatches = await bcrypt.compare(password, user.password);
       if (passwordMatches) {
-        token = jwt.sign({ userId: user.id }, authConfig.secret, {
+        token = jwt.sign({ user: user }, authConfig.secret, {
           expiresIn: authConfig.expires,
         });
         result = { success: true, token: token, user: user };
@@ -34,7 +32,6 @@ const authController = {
 
   signUp: async (req, res) => {
     let result;
-    let token;
     try {
       let password = req.body.password;
       if (password.length < 9 || password.length > 50) {

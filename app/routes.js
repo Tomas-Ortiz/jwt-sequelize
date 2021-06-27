@@ -19,7 +19,11 @@ router.post('/api/signin', authController.signIn);
 // Registro: api/signup
 router.post('/api/signup', authController.signUp);
 
-// Get posts
-router.get('/api/posts', auth, postController.index);
+// Posts routes
+router.post('/api/post', auth, postController.create);
+router.get('/api/posts', auth, postController.list);
+router.get('/api/posts/:id', auth, postController.show);
+router.put('/api/posts/:id', auth, postController.update);
+router.delete('/api/posts/:id', auth, postController.delete);
 
 module.exports = router;
