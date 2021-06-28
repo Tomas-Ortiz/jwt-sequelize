@@ -11,10 +11,12 @@ const authController = {
       const user = await User.findOne({ where: { email: email } });
       if (!user) {
         result = { success: false, msg: 'El correo ingresado no existe' };
-        res.status(400).send(result);
+        return res.status(400).send(result);
       }
       passwordMatches = await bcrypt.compare(password, user.password);
       if (passwordMatches) {
+        // No se debería agregar información confidencial al token
+        // Se lo hace a fines de simplificar la app
         token = jwt.sign({ user: user }, authConfig.secret, {
           expiresIn: authConfig.expires,
         });

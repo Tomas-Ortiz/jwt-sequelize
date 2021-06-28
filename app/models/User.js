@@ -57,5 +57,15 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'User',
     }
   );
+
+  User.isAdmin = function (roles) {
+    let auxRoles = [];
+    // Si tiene el rol 'admin' devuelve true, de lo contrario false
+    roles.forEach((role) => {
+      auxRoles.push(role.role);
+    });
+    return auxRoles.includes('admin');
+  };
+
   return User;
 };

@@ -32,14 +32,9 @@ const postController = {
     }
   },
   show: async (req, res) => {
-    let result, post;
+    let result;
     try {
-      post = await Post.findByPk(req.params.id);
-      if (!post) {
-        result = { success: false, msg: 'No se encontró la publicación' };
-        return res.status(404).json(result);
-      }
-      result = { success: true, post: post };
+      result = { success: true, post: req.post };
       res.status(200).json(result);
     } catch (err) {
       result = { success: false, msg: err };
@@ -47,17 +42,12 @@ const postController = {
     }
   },
   update: async (req, res) => {
-    let result, post;
+    let result;
     try {
-      post = await Post.findByPk(req.params.id);
-      if (!post) {
-        result = { success: false, msg: 'No se encontró la publicación' };
-        return res.status(404).json(result);
-      }
-      post.title = req.body.title;
-      post.body = req.body.body;
-      post = await post.save();
-      result = { success: true, post: post };
+      req.post.title = req.body.title;
+      req.post.body = req.body.body;
+      req.post = await req.post.save();
+      result = { success: true, post: req.post };
       res.status(200).json(result);
     } catch (err) {
       result = { success: false, msg: err };
@@ -65,16 +55,27 @@ const postController = {
     }
   },
   delete: async (req, res) => {
-    let result, post;
+    let result;
+    try {
+      req.post.destroy();
+      result = { success: true, msg: 'La publicación ha sido eliminada' };
+      res.status(200).json(result);
+    } catch (err) {
+      result = { success: false, msg: err };
+      res.status(500).json(result);
+    }
+  },
+  // Find funciona como un middleware
+  find: async (req, res, next) => {
+    let post, result;
     try {
       post = await Post.findByPk(req.params.id);
       if (!post) {
         result = { success: false, msg: 'No se encontró la publicación' };
         return res.status(404).json(result);
       }
-      post.destroy();
-      result = { success: true, msg: 'La publicación ha sido eliminada' };
-      res.status(200).json(result);
+      req.post = post;
+      next();
     } catch (err) {
       result = { success: false, msg: err };
       res.status(500).json(result);

@@ -10,7 +10,7 @@ module.exports = {
       User.create(
         {
           name: 'Agustin',
-          email: 'agustin@gmail.com',
+          email: 'agus@gmail.com',
           password: bcrypt.hashSync(
             '123456789',
             Number.parseInt(authConfig.salt)
@@ -38,7 +38,7 @@ module.exports = {
       User.create(
         {
           name: 'Tomas',
-          email: 'tomas@gmail.com',
+          email: 'tomi@gmail.com',
           password: bcrypt.hashSync(
             '123456789',
             Number.parseInt(authConfig.salt)

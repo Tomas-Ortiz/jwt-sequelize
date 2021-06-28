@@ -15,20 +15,20 @@ module.exports = {
         'user-role',
         [
           {
-            userId: 13,
+            userId: 1,
             roleId: 1,
             createdAt: new Date(),
             updatedAt: new Date(),
           },
           {
-            userId: 13,
+            userId: 1,
             roleId: 2,
             createdAt: new Date(),
             updatedAt: new Date(),
           },
           {
-            userId: 14,
-            roleId: 1,
+            userId: 2,
+            roleId: 2,
             createdAt: new Date(),
             updatedAt: new Date(),
           },
