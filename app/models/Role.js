@@ -1,5 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Role extends Model {
     /**
@@ -8,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      //  belongsToMany para relaciones Many-To-Many
+      // user-role como tabla de unión, que tendrá las fk correspondientes (roleId y userId)
       Role.belongsToMany(models.User, {
         as: 'users',
         through: 'user-role',

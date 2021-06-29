@@ -1,5 +1,7 @@
 const path = require('path');
 
+# Se exportan rutas relacionadas a la base de datos de datos
+
 module.exports = {
   'config': path.resolve('config', 'database.js'),
   'models-path': path.resolve('app', 'models'),

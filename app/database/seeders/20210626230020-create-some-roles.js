@@ -2,6 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    // Se insertan datos en la tabla roles y user-role (tabla intermedia)
     return Promise.all([
       queryInterface.bulkInsert(
         'roles',

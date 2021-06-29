@@ -1,5 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -8,7 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      // en hasMany la fk la tiene el modelo de destino (Post)
       User.hasMany(models.Post, { as: 'posts', foreignKey: 'userId' });
+      //  belongsToMany para relaciones Many-To-Many
+      // user-role como tabla de unión, que tendrá las fk correspondientes (userId y roleId)
       User.belongsToMany(models.Role, {
         as: 'roles',
         through: 'user-role',
@@ -21,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
+        // Se realizan algunas validaciones por atributo
         validate: {
           isAlpha: {
             msg: 'El nombre solo puede contener letras',

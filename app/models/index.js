@@ -7,7 +7,7 @@ const basename = path.basename(__filename);
 const config = require('../../config/database');
 const db = {};
 
-// Creamos la conexión a la BD
+// Se crea la conexión a la BD
 let sequelize = new Sequelize(
   config.database,
   config.username,

@@ -1,5 +1,6 @@
 const { Post } = require('../models/index');
 
+// Post CRUD
 const postController = {
   create: async (req, res) => {
     let result, post;

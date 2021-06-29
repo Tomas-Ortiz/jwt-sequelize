@@ -16,6 +16,7 @@ app.use(require('./routes/PostRouter'));
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
+  // Verificando la conexión a la bd
   sequelize
     .authenticate()
     .then(() => {
