@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const authConfig = require('../../../config/auth');
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: (queryInterface, Sequelize) => {
     // Se crean 2 usuarios, con sus respectivos posts
     return Promise.all([
       User.create(
@@ -61,7 +61,7 @@ module.exports = {
     ]);
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: (queryInterface, Sequelize) => {
     return Promise.all([
       queryInterface.bulkDelete('posts', null, {}),
       queryInterface.bulkDelete('users', null, {}),

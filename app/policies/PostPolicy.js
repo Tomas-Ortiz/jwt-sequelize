@@ -26,6 +26,6 @@ function isAuthorized(req, res, msg, next) {
       success: false,
       msg: msg,
     };
-    res.status(401).json(result);
+    return res.status(401).json(result);
   }
 }

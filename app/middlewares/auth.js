@@ -21,6 +21,6 @@ module.exports = async (req, res, next) => {
     next();
   } catch (err) {
     result = { success: false, msg: 'Token no válido' };
-    res.status(400).json(result);
+    return res.status(400).json(result);
   }
 };

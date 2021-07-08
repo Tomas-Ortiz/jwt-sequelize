@@ -15,10 +15,10 @@ const postController = {
         msg: 'Publicación creada',
         post: post,
       };
-      res.status(201).json(result);
+      return res.status(201).json(result);
     } catch (err) {
       result = { success: false, msg: err };
-      res.status(500).json(result);
+      return res.status(500).json(result);
     }
   },
   list: async (req, res) => {
@@ -26,20 +26,20 @@ const postController = {
     try {
       posts = await Post.findAll();
       result = { success: true, posts: posts };
-      res.status(200).json(posts);
+      return res.status(200).json(posts);
     } catch (err) {
       result = { success: false, msg: err };
-      res.status(500).json(result);
+      return res.status(500).json(result);
     }
   },
   show: async (req, res) => {
     let result;
     try {
       result = { success: true, post: req.post };
-      res.status(200).json(result);
+      return res.status(200).json(result);
     } catch (err) {
       result = { success: false, msg: err };
-      res.status(500).json(result);
+      return res.status(500).json(result);
     }
   },
   update: async (req, res) => {
@@ -49,10 +49,10 @@ const postController = {
       req.post.body = req.body.body;
       req.post = await req.post.save();
       result = { success: true, post: req.post };
-      res.status(200).json(result);
+      return res.status(200).json(result);
     } catch (err) {
       result = { success: false, msg: err };
-      res.status(500).json(result);
+      return res.status(500).json(result);
     }
   },
   delete: async (req, res) => {
@@ -60,10 +60,10 @@ const postController = {
     try {
       req.post.destroy();
       result = { success: true, msg: 'La publicación ha sido eliminada' };
-      res.status(200).json(result);
+      return res.status(200).json(result);
     } catch (err) {
       result = { success: false, msg: err };
-      res.status(500).json(result);
+      return res.status(500).json(result);
     }
   },
   // Find funciona como un middleware
@@ -79,7 +79,7 @@ const postController = {
       next();
     } catch (err) {
       result = { success: false, msg: err };
-      res.status(500).json(result);
+      return res.status(500).json(result);
     }
   },
 };

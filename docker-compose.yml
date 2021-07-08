@@ -1,0 +1,49 @@
+version: '3.9'
+networks:
+  backend:
+    driver: bridge
+services:
+  node-server:
+    container_name: node-server
+    build: .
+    image: tomi99/node-server
+    networks:
+      - backend
+    ports:
+      - '3000:3000'
+    environment:
+      - DB_HOST=mysql-database
+      - DB_USERNAME=tomiuser
+      - DB_PASSWORD=tomipass
+      - DB_DATABASE=auth
+      - DB_DIALECT=mysql
+      - AUTH_SECRET=jwt+sequelize
+      - AUTH_EXPIRES=1d
+      - AUTH_SALT=10
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      mysql-database:
+        condition: service_healthy
+
+  mysql-database:
+    container_name: mysql-database
+    image: mysql
+    # En Unix/Linux las minúsculas y mayúsculas se distinguen (users != Users)
+    command: --lower_case_table_names=1
+    environment:
+      - MYSQL_USER=tomiuser
+      - MYSQL_PASSWORD=tomipass
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=auth
+    networks:
+      - backend
+    ports:
+      - '3306:3306'
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      timeout: 15s
+      retries: 1
+    cap_add:
+      - SYS_NICE

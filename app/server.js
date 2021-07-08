@@ -11,18 +11,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Rutas
+app.get('/', (req, res) => {
+  res.status(200).json({ saludo: 'Hola Mundo' });
+});
+
 app.use(require('./routes/AuthRouter'));
 app.use(require('./routes/PostRouter'));
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
   // Verificando la conexión a la bd
-  sequelize
-    .authenticate()
-    .then(() => {
-      console.log('Conectado a la base de datos');
-    })
-    .catch((err) => {
-      console.log('Error al conectarse a la base de datos');
-    });
+  try {
+    await sequelize.authenticate();
+    console.log('Conectado a la base de datos');
+  } catch (err) {
+    console.error('Error al conectarse a la base de datos: ', err);
+  }
 });

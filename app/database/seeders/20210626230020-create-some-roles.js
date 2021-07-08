@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: (queryInterface, Sequelize) => {
     // Se insertan datos en la tabla roles y user-role (tabla intermedia)
     return Promise.all([
       queryInterface.bulkInsert(
@@ -39,7 +39,7 @@ module.exports = {
     ]);
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: (queryInterface, Sequelize) => {
     return Promise.all([
       queryInterface.bulkDelete('roles', null, {}),
       queryInterface.bulkDelete('user-role', null, {}),

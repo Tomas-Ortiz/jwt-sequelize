@@ -11,7 +11,7 @@ const authController = {
       const user = await User.findOne({ where: { email: email } });
       if (!user) {
         result = { success: false, msg: 'El correo ingresado no existe' };
-        return res.status(400).send(result);
+        return res.status(400).json(result);
       }
       passwordMatches = await bcrypt.compare(password, user.password);
       if (passwordMatches) {
@@ -21,14 +21,14 @@ const authController = {
           expiresIn: authConfig.expires,
         });
         result = { success: true, token: token, user: user };
-        res.status(200).json(result);
+        return res.status(200).json(result);
       } else {
         result = { success: false, msg: 'Contraseña incorrecta' };
-        res.status(401).json(result);
+        return res.status(401).json(result);
       }
     } catch (err) {
       result = { success: false, msg: err };
-      res.status(500).json(result);
+      return res.status(500).json(result);
     }
   },
 
@@ -41,7 +41,7 @@ const authController = {
           success: false,
           msg: 'La contraseña debe tener entre 9 y 50 caracteres',
         };
-        res.status(400).json(result);
+        return res.status(400).json(result);
       }
       let encryptedPassword = await bcrypt.hash(
         password,
@@ -57,10 +57,10 @@ const authController = {
         msg: 'Usuario registrado',
         user: user,
       };
-      res.status(201).json(result);
+      return res.status(201).json(result);
     } catch (err) {
       result = { success: false, msg: err };
-      res.status(500).json(result);
+      return res.status(500).json(result);
     }
   },
 };

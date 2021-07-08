@@ -8,14 +8,14 @@ const config = require('../../config/database');
 const db = {};
 
 // Se crea la conexión a la BD
-let sequelize = new Sequelize(
+const sequelize = new Sequelize(
   config.database,
   config.username,
   config.password,
-  config
+  { host: config.host, dialect: config.dialect }
 );
 
-// Asociaciones de los modelos
+// Lectura de ficheros y asociaciones de los modelos
 fs.readdirSync(__dirname)
   .filter((file) => {
     return (

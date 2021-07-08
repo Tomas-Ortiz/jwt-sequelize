@@ -71,6 +71,5 @@ module.exports = (sequelize, DataTypes) => {
     });
     return auxRoles.includes('admin');
   };
-
   return User;
 };
